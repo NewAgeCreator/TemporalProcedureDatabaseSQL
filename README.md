@@ -7,7 +7,7 @@ To use software properly you should need to do this steps first.
 1. TYPE in Terminal ✍🏻 
 npm i 
 
-2. CREATE connection pool in config/db.js with MariaDB 💽
+2. CREATE connection pool in config/mysql/db.js with MariaDB 💽
 
 const mysql = require('mysql2');
 
