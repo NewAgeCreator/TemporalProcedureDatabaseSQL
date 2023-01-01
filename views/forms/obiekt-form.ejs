@@ -1,0 +1,157 @@
+<%- include('../fragments/header.ejs') %> 
+<link rel="stylesheet" href="/css/form.css">
+<link rel="stylesheet" href="/css/map.css">
+<link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+crossorigin=""/>
+ <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+   integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+   crossorigin=""></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/validation_form/obiekt_validation.js"></script>
+
+
+<section class="form-section">
+<h1><%=action%> Obiekt</h1>
+    <form class="form" method="post" action="<%=link%>" novalidate onsubmit="return validForm()">
+        <label for="Nazwa">Nazwa: 
+            <span class="symbol-required">*</span>
+        </label>
+        <input  type="text" name="Nazwa" id="Nazwa" placeholder="Wymagane" value="<%=obiekt.Nazwa%>" <%= (action == `Szczegoly`) ? 'disabled' : `` %>/>  
+            <span class="errors-text" id="errorNazwa"> 
+                <% if(validationErrors.find(v => v.path.includes('Nazwa'))) { %>
+                    <%= validationErrors.find(v => v.path.includes('Nazwa')).message %>
+                <% } %> 
+            </span>                
+        
+            <label for="Typ_wydarzenia">Typ wydarznia: 
+                <span class="symbol-required">*</span>
+            </label>
+            <input type="text" name="Typ_wydarzenia" id="Typ_wydarzenia" 
+                placeholder="Wymagane"     value="<%=obiekt.Typ_wydarzenia%>"  <%= (action == `Szczegoly`) ? 'disabled' : `` %>/>
+                <span class="errors-text" id="errorTyp_wydarzenia">
+                     <% if(validationErrors.find(v => v.path.includes('Typ_wydarzenia'))) { %>
+                        <%= validationErrors.find(v => v.path.includes('Typ_wydarzenia')).message %>
+                    <% } %> 
+                </span>
+
+                <label for="Warstwa">Wybierz warstwę:  
+                    <span class="symbol-required">*</span>
+                </label>
+                <select name="Warstwa_id" id="Warstwa-select" onchange="" required  <%= (action == `Szczegoly`) ? 'disabled' : ``%>>
+                    <option value="0">Wybierz Warstwe</option>
+                    <% for(warstwa of warstwas) { %>
+                    <option value="<%=warstwa.Id%>" <%= (warstwa.Id == obiekt.Warstwa_id) ? 'selected' : ''  %>> <%=warstwa.Nazwa%></option>
+                    <% } %>
+                    </select>
+                    <span class="errors-text" id="errorWarstwa" >
+                        <% if(validationErrors.find(v => v.path.includes('Warstwa_id'))) { %>
+                            <%= validationErrors.find(v => v.path.includes('Warstwa_id')).message %>
+                        <% } %> 
+                    </span>
+
+            <label for="VTS">Początek: 
+                <span class="symbol-required">*</span>
+            </label>
+            <input type="date" name="VTS" id="VTS" 
+                placeholder="Wymagane"     value="<%=obiekt.VTs%>"  <%= (action == `Szczegoly`) ? 'disabled' : `` %>/>
+                <span class="errors-text" id="errorVTS" >
+                    <% if(validationErrors.find(v => v.path.includes('VTS'))) { %>
+                        <%= validationErrors.find(v => v.path.includes('VTS')).message %>
+                    <% } %> 
+                </span>
+             
+              <label for="VTE">Koniec: 
+                <span class="symbol-required">*</span>
+            </label>
+            <input type="date" name="VTE" id="VTE" 
+                placeholder="Wymagane"     value="<%=obiekt.VTe%>"  <%= (action == `Szczegoly`) ? 'disabled' : `` %>/>
+                <span class="errors-text" id="errorVTE" >
+                    <% if(validationErrors.find(v => v.path.includes('VTE'))) { %>
+                        <%= validationErrors.find(v => v.path.includes('VTE')).message %>
+                    <% } %> 
+                </span>
+              <span></span>
+
+            <div class="map-control ">
+                <div id="map" class=""></div>
+                 
+                <div id="point-div">
+                    
+                </div>
+                
+                <span class="errors-text" id="errorMap"></span>
+            </div>
+
+                
+   
+                <span>  
+                </span>
+                <span></span>
+                <input hidden type="number" name="Id_stanu" id="Id_stanu"  value="<%=obiekt.Id_stanu%>" />    
+                <input hidden type="number" name="Id_obiektu" id="Id_obiektu"  value="<%=obiekt.Id_obiektu%>" />    
+                  
+                <% if(action == `Szczegoly` ) { %>   
+                        <a href = "/obiekt/edit/<%=obiekt.Id_stanu%>" class="button">Przejdź do edycji</a>
+                  <% } %>
+                  <% if(action == `Dodaj` || action == 'Edytuj' ) { %>   
+                      <input type="submit"  value="<%=action%>"/>
+                  <% } %>
+                  <p class="errors-text" id="errorSummary"></p>
+                
+                <div class="geo-inputs" id="geo-inputs" style="display: none;">
+                    <%if(obiekt.GEO) for( var i = 0 ; i < obiekt.GEO.length ; i++ ) {%>
+                        <input class="geo-inputs-load" name="GEO" value="<%=obiekt.GEO[i]%>" disabled>
+                    <% } %>
+                </div>
+                
+        </form>
+</section>
+<% if(action == `Szczegoly` ) { %>   
+<section class="admin_panel_section obiekt-list">
+    <h1 class="title">Historia Stanow</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_stanu</th>
+                <th>Id_Warstwy</th>
+                <th>Nazwa</th>                   
+                <th>Typ wydarzenia</th>
+                <th>GEO</th>          
+                <th>Start_wydarzenia</th>  
+                <th>Koniec_wydarzenia</th>
+                <th>TTS</th>
+                <th>TTE</th>
+                
+                <th>Stan</th>  
+ 
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let so of stany_obiektu) {%>
+                <tr>
+                    <td><%= so.Id_stanu%></td>
+                    <td><%= so.Warstwa_id%></td>
+                    <td><%= so.Nazwa%></td>
+                    <td><%= so.Typ_wydarzenia%></td>
+                    <td class="GEO-th"><%= so.GEO%></td>
+                    <td><%= so.VTs%></td>
+                    <td><%= so.VTe%></td>
+                    <td><%= so.TTs%></td>
+                    <td><%= so.TTe%></td>
+                    <td><div class="gap <%=(so.Rodzaj_stanu === 'A') ? 'gap-active' : 'gap-unactive' %>"></div></td>
+                </tr>
+        
+            <% } %>
+        </tbody>
+    </table>
+    <div class="button-link">
+        <a href="/obiekt/add" class="button add_warstwa_button">Dodaj Obiekt</a>
+    </div>
+
+</section>
+<% } %>
+<script type="text/javascript" src="/js/map_addObiekt.js"></script>

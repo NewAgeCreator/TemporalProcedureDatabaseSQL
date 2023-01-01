@@ -1,0 +1,138 @@
+html {
+	background-color: rgb(255, 254, 254);
+	font-family: sans-serif;
+    
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+body {
+	min-width: 360px;
+}
+
+
+
+.menu-navbar{
+    position: relative;
+    z-index: 5;
+}
+
+.submenu{
+    display: inline-block;
+    position: absolute;
+    background-color: #ecf0f1;
+    display: none;
+    z-index: 3;
+}
+
+.submenu a{
+    width: 100%;
+}
+
+
+.menu-navbar li:hover > .submenu{
+   display: block;
+    
+}
+
+header, main, footer, nav {
+	margin: 1rem;
+}
+
+header, footer {
+	
+	color: rgb(36, 38, 170);
+	
+}
+
+header {
+	display: flex;
+        justify-content: space-between;
+}
+
+
+ul{
+    align-items: center;
+    justify-content: center;
+}
+
+
+nav ul {
+	display: flex;
+	padding: 0;
+	list-style-type: none;
+}
+
+
+
+nav ul li a {
+	display: inline-block;
+	color: blue;
+	padding: 1rem 2rem;
+	text-decoration: none;
+}
+
+nav ul li a:hover {
+	background-color: #002cee;
+	color: #fff;
+}
+
+nav ul li a.active {
+	background-color: #1800ee;
+	color: #ecf0f1;
+}
+
+
+
+/* particles */
+
+#particles{
+    top:-3rem;
+    width: 100%;
+    height: 50vh;
+    background-color: #ffffff;
+    position: relative;
+    z-index: 1;
+
+}
+.title-wrapper-main h1{
+    font-size: 4rem;
+    transition: all 4s;
+}
+
+.title-wrapper-main h4{
+    transform: translate(0%, -50%);
+    transition: all 8s;
+}
+.title-wrapper-main{
+   position: absolute;
+   transform: translate(-50%, 0);
+    top: 50%;
+    left: 50%;
+    color: #4281f5;
+
+}
+
+.title-wrapper-help{
+    transform: translate(-50%);
+    font-size: 2rem;
+}
+
+
+.container{
+    position: relative;
+    margin: 6rem auto;
+    width: 60vw;
+    
+}
+
+.about p{
+    font-size: 1.2rem;
+    letter-spacing: 1.2px;
+    color: rgb(43, 41, 41);
+}

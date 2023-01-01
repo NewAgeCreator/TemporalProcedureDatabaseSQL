@@ -26,7 +26,9 @@ module.exports = connection;
 
 I hope u will injoy this part of software. 
 
-Desc. #0.1 Beta Version 
+4. If u want you can use public database already on config/db.js if it steal exists 
+
+Desc. #0.2 Beta Version 
 
 
 

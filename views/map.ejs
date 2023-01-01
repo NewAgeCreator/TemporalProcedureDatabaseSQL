@@ -1,0 +1,66 @@
+<%- include(`./fragments/header.ejs`) %>
+<link rel="stylesheet" href="/css/map.css">
+<link rel="stylesheet" href="/css/table.css">
+<link 
+rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+crossorigin=""/>
+
+<script 
+src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+   integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+   crossorigin=""></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<section class="map-section">
+
+    <div class="container">
+        <div class="grid-map-container">
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+            <div class="warstwas-container">
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nazwa Warstwy</th>          
+                            <th>Wyświetlanie</th>   
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let warstwa of warstwas) {%>
+                            <tr>
+                                <td class="warstwa_id" style="display: none;"></td>
+                                <td><%= warstwa.Nazwa %></td>
+                                <td class="input-check-box-col">
+                                    <input onclick="onChangeCheckBox()" class="warstwa_checkbox" value="<%=warstwa.Id%>" type="checkbox"/></td>
+                                </tr>
+                    
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <input id="currentTematInput" hidden value="<%=currentTemat%>">
+</section>
+
+<section class="admin_panel_section opis-list">
+    <h1 class="title">Lista Opisow</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_opis</th>
+                <th>Nazwa</th>                   
+                <th>Opis</th>
+            </tr>
+        </thead>
+        <tbody id="TableOpisBody">
+         
+              
+        </tbody>
+    </table>
+
+<script type="text/javascript" src="/js/map.js"></script>

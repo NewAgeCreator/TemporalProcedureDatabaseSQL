@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta charset="UTF-8">
+		<title>HISTORY MAP</title>
+		<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+	<nav class="menu-navbar">
+	     <ul>
+			 <li><a href="/" class="<%= navLocation == 'main' ? 'active' : '' %>">Strona główna</a></li>
+			 <li><a href="#" class="<%= navLocation == 'map' ? 'active' : '' %>" >Mapa</a>
+				<ul class="submenu">
+					<% for(let temat of temats) {%>
+						<li><a href="/map/<%=temat.Id%>"><%=temat.Nazwa%></a></li>
+					<% } %>
+				</ul>
+				</li>
+			 <li><a href="/about" class="<%= navLocation == 'about' ? 'active' : '' %>" >O Projekcie</a></li>
+			 <li><a href="/admin"class="<%= navLocation == 'admin' ? 'active' : '' %>" >Panel Administratora</a></li>
+             
+		</ul> 
+
+	</nav>
+
+ 

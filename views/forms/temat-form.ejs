@@ -1,0 +1,64 @@
+<%- include('../fragments/header.ejs') %> 
+<link rel="stylesheet" href="/css/form.css">
+<script type="text/javascript" src="/js/validation_form/temat_validation.js"></script>
+<section class="form-section">
+<h1><%=action%> Temat</h1>
+    <form class="form" method="post" action="<%=link%>" novalidate onsubmit="return validForm()">
+        
+        <label for="Nazwa">Nazwa: 
+            <span class="symbol-required">*</span>
+        </label>
+        <input  type="text" name="Nazwa" id="Nazwa" placeholder="Wymagane" value="<%=temat.Nazwa%>" <%= (action == `Szczegoly`) ? 'disabled' : `` %>/>  
+            <span class="errors-text" id="errorNazwa"> 
+                <% if(validationErrors.find(v => v.path.includes('Nazwa'))) { %>
+                    <%= validationErrors.find(v => v.path.includes('Nazwa')).message %>
+                <% } %> 
+            </span>
+        
+            <label for="Opis">Opis: 
+                <span class="symbol-required">*</span>
+            </label>
+            <input type="text" name="Opis" id="Opis" 
+                placeholder="Wymagane"   rows="5"  value="<%=temat.Opis%>" <%= (action == `Szczegoly`) ? 'disabled' : `` %> />
+                <span class="errors-text" id="errorOpis">
+                    <% if(validationErrors.find(v => v.path.includes('Opis'))) { %>
+                        <%= validationErrors.find(v => v.path.includes('Opis')).message %>
+                    <% } %> 
+                </span>
+                
+        
+            <label for="Imie">Imie: 
+                <span class="symbol-required">*</span>
+            </label>
+            <input type="text" name="Imie_autora" id="Imie" 
+                placeholder="Wymagane"     value="<%=temat.Imie_autora%>"  <%= (action == `Szczegoly`) ? 'disabled' : `` %>/>
+                <span class="errors-text" id="errorImie">
+                     <% if(validationErrors.find(v => v.path.includes('Imie_autora'))) { %>
+                        <%= validationErrors.find(v => v.path.includes('Imie_autora')).message %>
+                    <% } %> 
+                </span>
+
+            <label for="Nazwisko">Nazwisko: 
+                <span class="symbol-required">*</span>
+            </label>
+            <input type="text" name="Nazwisko_autora" id="Nazwisko" 
+                placeholder="Wymagane"     value="<%=temat.Nazwisko_autora%>"  <%= (action == `Szczegoly`) ? 'disabled' : `` %>/>
+                <span class="errors-text" id="errorNazwisko" >
+                    <% if(validationErrors.find(v => v.path.includes('Nazwisko_autora'))) { %>
+                        <%= validationErrors.find(v => v.path.includes('Nazwisko_autora')).message %>
+                    <% } %> 
+                </span>
+              <span></span>
+
+              <input hidden type="date" name="data_utworzenia" id="data_utworzenia"  value="<%=temat.data_utworzenia%>" />    
+              <input hidden type="text" name="Id" id="id"  value="<%=temat.Id%>" />    
+                
+              <% if(action == `Szczegoly` ) { %>   
+                      <a href = "/temat/edit/<%=temat.Id%>/" class="button">Przejdź do edycji</a>
+                <% } %>
+                <% if(action == `Dodaj` || action == 'Edytuj' ) { %>   
+                    <input type="submit" value="<%=action%>"/>
+                <% } %>
+                <p class="errors-text" id="errorSummary"></p>
+        </form>
+</section>

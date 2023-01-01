@@ -1,0 +1,271 @@
+<%- include(`./fragments/header.ejs`) %>
+<link rel="stylesheet" href="/css/table.css">
+<link rel="stylesheet" href="/css/admin.css">
+<section class="admin_panel_section temat-list">
+    <h1 class="title">Lista Tematów</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id.</th>
+                <th>Nazwa Tematu</th>          
+                <th>Opis</th>          
+                <th>Data_utworzenia</th>
+                <th>Imie_autora</th>          
+                <th>Nazwisko_autora</th>  
+                <th>Akcje</th>  
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let temat of temats) {%>
+                <tr>
+                    <td class="warstwa_id"><%= temat.Id%></td>
+                    <td><%= temat.Nazwa%></td>
+                    <td><%= temat.Opis%></td>
+                    <td><%= temat.Data_utworzenia%></td>
+                    <td><%= temat.Imie_autora%></td>
+                    <td><%= temat.Nazwisko_autora%></td>
+                    <td> <ul class="list-actions">
+                        <li>
+                             <a href="/temat/details/<%=temat.Id%>" class="list-actions-button-details">Szczegóły</a>
+                         </li>
+                         <li>
+                             <a href="/temat/edit/<%=temat.Id%>" class="list-actions-button-edit">Edytuj</a>		
+                         </li>
+                         <li>							
+                                <a href="/temat/delete/<%=temat.Id%>" class="list-actions-button-delete">Usuń</a>		
+                         </li></td>
+                </tr>
+        
+            <% } %>
+        </tbody>
+    </table>
+    <div class="button-link">
+    <a href="/temat/add" class="button add_temat_button">Dodaj Temat</a>
+        </div>
+</section>
+
+<section class="admin_panel_section warstwa-list">
+    <h1 class="title">Lista Warstw</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id.</th>
+                <th>Nazwa Warstwy</th>          
+                <th>Opis</th>          
+                <th>Data_utworzenia</th>
+                <th>Imie_autora</th>          
+                <th>Nazwisko_autora</th>  
+                <th>Akcje</th>  
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let warstwa of warstwas) {%>
+                <tr>
+                    <td class="warstwa_id"><%= warstwa.Id%></td>
+                    <td><%= warstwa.Nazwa%></td>
+                    <td><%= warstwa.Opis%></td>
+                    <td><%= warstwa.Data_utworzenia%></td>
+                    <td><%= warstwa.Imie_autora%></td>
+                    <td><%= warstwa.Nazwisko_autora%></td>
+                    <td> <ul class="list-actions">
+                        <li>
+                             <a href="/warstwa/details/<%=warstwa.Id%>" class="list-actions-button-details">Szczegóły</a>
+                         </li>
+                         <li>
+                             <a href="/warstwa/edit/<%=warstwa.Id%>" class="list-actions-button-edit">Edytuj</a>		
+                         </li>
+                         <li>							
+                                <a href="/warstwa/delete/<%=warstwa.Id%>" class="list-actions-button-delete">Usuń</a>		
+                         </li></td>
+                </tr>
+        
+            <% } %>
+        </tbody>
+    </table>
+    <div class="button-link">
+        <a href="/warstwa/add" class="button add_warstwa_button">Dodaj Warstwę</a>
+    </div>
+
+</section>
+
+<section class="admin_panel_section warstwa-list">
+    <h1 class="title">Warstwy w tematach</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_tematu</th>
+                <th>Nazwa Tematu</th>          
+                <th>Id_Warstwy</th>
+                <th>Nazwa Warstwy</th>
+                <th>Usuń Relacje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let tw of tematWarstwa) {%>
+                <tr>
+                    <td><%= tw.Temat_id%></td>
+                    <td><%= tw.Nazwa_temat%></td>
+                    <td><%= tw.Warstwa_id%></td>
+                    <td><%= tw.Nazwa_warstwa%></td>
+                    <td> <ul class="list-actions">
+                         <li>							
+                                <a href="/warstwawtemacie/delete/<%=tw.Id%>" class="list-actions-button-delete">Usuń</a>		
+                         </li></td>
+                </tr>
+        
+            <% } %>
+        </tbody>
+    </table>
+    <div class="button-link">
+        <a href="/warstwawtemacie/add" class="button add_warstwa_button">Dodaj Warstwę do Tematu</a>
+    </div>
+
+</section>
+
+
+<section class="admin_panel_section obiekt-list">
+    <h1 class="title">Lista Obiektów</h1>
+    <table class="table">
+        <thead>
+            <tr><th>Id_obiektu</th>
+                <th>Id_Warstwy</th>
+                <th>Nazwa</th>                   
+                <th>Typ wydarzenia</th>
+                <th>GEO</th>          
+                <th>Start_wydarzenia</th>  
+                <th>Koniec_wydarzenia</th>  
+            
+                <th>Akcje</th>  
+ 
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let obiekt of obiekts) {%>
+                <tr>
+                    <td><%= obiekt.Id_obiektu%></td>
+                    <td class="warstwa_id"><%= obiekt.Warstwa_id%></td>
+                    <td><%= obiekt.Nazwa%></td>
+                    <td><%= obiekt.Typ_wydarzenia%></td>
+                    <td class="GEO-th"><%= obiekt.GEO%></td>
+                    <td><%= obiekt.VTs%></td>
+                    <td><%= obiekt.VTe%></td>
+                    <td> <ul class="list-actions">
+                        <li>
+                             <a href="/obiekt/details/<%=obiekt.Id_stanu%>" class="list-actions-button-details">Szczegóły</a>
+                         </li>
+                         <li>
+                             <a href="/obiekt/edit/<%=obiekt.Id_stanu%>" class="list-actions-button-edit">Edytuj</a>		
+                         </li>
+                         <li>	
+                            <% if(obiekt.Rodzaj_stanu == 'A') { %>						
+                                <a href="/obiekt/delete/<%=obiekt.Id_obiektu%>" class="list-actions-button-delete">Zakończ</a>	
+                            <% } else { %>
+                                <a href="/obiekt/revive/<%=obiekt.Id_obiektu%>" class="list-actions-button-revive">Wznów</a>	
+                            <% } %>
+
+                         </li></td>
+                </tr>
+        
+            <% } %>
+        </tbody>
+    </table>
+    <div class="button-link">
+        <a href="/obiekt/add" class="button add_warstwa_button">Dodaj Obiekt</a>
+    </div>
+
+</section>
+
+
+<section class="admin_panel_section opis-list">
+    <h1 class="title">Lista Opisow</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_opis</th>
+                <th>Nazwa</th>                   
+                <th>Opis</th>
+                <th>Data_utworzenia</th>          
+                <th>Utworzono</th>          
+                <th>Ważny do</th>  
+                <th>Update</th>  
+                <th>Akcje</th>  
+ 
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let opis of opises) {%>
+                <tr>
+                    <td class="warstwa_id"><%= opis.Id_opisu%></td>
+                    <td><%= opis.Nazwa_skrocona%></td>
+                    <td><%= opis.Opis%></td>
+                    <td><%= opis.Imie_autora%></td>
+                    <td><%= opis.VTs%></td>
+                    <td><%= opis.VTe%></td>
+                    <td><%= opis.TTs%></td>
+                    <td> <ul class="list-actions">
+                        <li>
+                             <a href="/opis/details/<%=opis.Id_stanu%>" class="list-actions-button-details">Szczegóły</a>
+                         </li>
+                         <li>
+                             <a href="/opis/edit/<%=opis.Id_opisu%>" class="list-actions-button-edit">Edytuj</a>		
+                         </li>
+                         <li>	
+                            <% if(opis.Rodzaj_stanu == 'A') { %>						
+                                <a href="/opis/delete/<%=opis.Id_opisu%>" class="list-actions-button-delete">Zakończ</a>	
+                            <% } else { %>
+                                <a href="/opis/revive/<%=opis.Id_opisu%>" class="list-actions-button-revive">Wznów</a>	
+                            <% } %>
+
+                         </li></td>
+                </tr>
+        
+            <% } %>
+        </tbody>
+    </table>
+    <div class="button-link">
+        <a href="/opis/add" class="button add_warstwa_button">Dodaj Opis</a>
+    </div>
+
+</section>
+
+
+<section class="admin_panel_section warstwa-list">
+    <h1 class="title">Opisy w obiektach</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_stanu</th>
+                <th>Id_obiektu</th>
+                <th>Id_opisu</th>
+                
+                <th>stan_obiektu</th>
+                <th>Nazwa</th>          
+                <th>Nazwa_skrocona</th>
+                <th>Opis</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let oo of obiekt_opisowy) {%>
+                <tr>
+                    <td><%= oo.Id_stanu%></td>
+                    <td><b><%=oo.Id_obiektu%></b></td>
+                    <td><b><%=oo.Id_opisu%></b></td>
+                    <td><%= oo.stan_obiektu%></td>
+                    <td><%= oo.Nazwa%></td>
+                    <td><%= oo.Nazwa_skrocona%></td>
+                    <td><%= oo.Opis%></td>
+                    <td> <ul class="list-actions">
+                         <li>							
+                                <a href="/obiekt_opisowy/details/<%=oo.Id_opisu%>/<%=oo.Id_obiektu%>" class="list-actions-button-details">Szczegóły</a>		
+                                <a href="/obiekt_opisowy/delete/<%=oo.Id_opisu%>/<%=oo.Id_obiektu%>" class="list-actions-button-delete">Usuń</a>		
+                         </li></td>
+                </tr>
+        
+            <% } %>
+        </tbody>
+    </table>
+    <div class="button-link">
+        <a href="/obiekt_opisowy/add" class="button add_warstwa_button">Dodaj Opis do Obiektu</a>
+    </div>
+
+</section>

@@ -1,0 +1,113 @@
+<%- include('../fragments/header.ejs') %> 
+<link rel="stylesheet" href="/css/form.css">
+<link rel="stylesheet" href="/css/table.css">
+
+<script type="text/javascript" src="/js/validation_form/opis_validation.js"></script>
+
+
+<section class="form-section">
+<h1><%=action%> Opis</h1>
+    <form class="form" method="post" action="<%=link%>" novalidate onsubmit="return validForm()">
+        <label for="Nazwa_skrocona">Nazwa_skrocona: 
+            <span class="symbol-required">*</span>
+        </label>
+        <input  type="text" name="Nazwa_skrocona" id="Nazwa_skrocona" placeholder="Wymagane" value="<%=opis.Nazwa_skrocona%>" <%= (action == `Szczegoly`) ? 'disabled' : `` %>/>  
+            <span class="errors-text" id="errorNazwa_skrocona"> 
+                <% if(validationErrors.find(v => v.path.includes('Nazwa_skrocona'))) { %>
+                    <%= validationErrors.find(v => v.path.includes('Nazwa_skrocona')).message %>
+                <% } %> 
+            </span>                
+        
+            <label for="Opis">Opis: 
+                <span class="symbol-required">*</span>
+            </label>
+            <input type="text" name="Opis" id="Opis" 
+                placeholder="Wymagane"     value="<%=opis.Opis%>"  <%= (action == `Szczegoly`) ? 'disabled' : `` %>/>
+                <span class="errors-text" id="errorOpis">
+                     <% if(validationErrors.find(v => v.path.includes('Opis'))) { %>
+                        <%= validationErrors.find(v => v.path.includes('Opis')).message %>
+                    <% } %> 
+                </span>
+
+                <label for="Imie_autora">Imie autora:  
+                    <span class="symbol-required">*</span>
+                </label>
+                <input type="text" name="Imie_autora" id="Imie_autora" 
+                placeholder="Wymagane"     value="<%=opis.Imie_autora%>"  <%= (action == `Szczegoly`) ? 'disabled' : `` %>/>
+                <span class="errors-text" id="errorImie_autora">
+                     <% if(validationErrors.find(v => v.path.includes('Imie_autora'))) { %>
+                        <%= validationErrors.find(v => v.path.includes('Imie_autora')).message %>
+                    <% } %> 
+                </span>
+
+                
+                <label for="Nazwisko_autora">Nazwisko autora:  
+                    <span class="symbol-required">*</span>
+                </label>
+                <input type="text" name="Nazwisko_autora" id="Nazwisko_autora" 
+                placeholder="Wymagane"     value="<%=opis.Nazwisko_autora%>"  <%= (action == `Szczegoly`) ? 'disabled' : `` %>/>
+                <span class="errors-text" id="errorNazwisko_autora">
+                     <% if(validationErrors.find(v => v.path.includes('Nazwisko_autora'))) { %>
+                        <%= validationErrors.find(v => v.path.includes('Nazwisko_autora')).message %>
+                    <% } %> 
+                </span>
+
+                <span></span>
+                <input hidden type="number" name="Id_stanu" id="Id_stanu"  value="<%=opis.Id_stanu%>" />    
+                <input hidden type="number" name="Id_opisu" id="Id_opisu"  value="<%=opis.Id_opisu%>" />    
+                  
+                <% if(action == `Szczegoly` ) { %>   
+                        <a href = "/opis/edit/<%=opis.Id_opisu%>" class="button">Przejdź do edycji</a>
+                  <% } %>
+                  <% if(action == `Dodaj` || action == 'Edytuj' ) { %>   
+                      <input type="submit"  value="<%=action%>"/>
+                  <% } %>
+                  <p class="errors-text" id="errorSummary"></p>
+               
+                
+        </form>
+</section>
+<% if(action == `Szczegoly` ) { %>   
+<section class="admin_panel_section obiekt-list">
+    <h1 class="title">Historia Stanow</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_stanu</th>
+                <th>Id_Opisu</th>
+                <th>Nazwa_skrocona</th>                   
+                <th>Opis</th>
+                <th>Imie</th>          
+                <th>Nazwisko</th>          
+                <th>Utworzono</th>  
+                <th>Ważny do</th>
+                <th>TTS</th>
+                <th>TTE</th>
+                <th>Stan</th>  
+ 
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let so of stany_opisu) {%>
+                <tr>
+                    <td><%= so.Id_stanu%></td>
+                    <td><%= so.Id_opisu%></td>
+                    <td><%= so.Nazwa_skrocona%></td>
+                    <td><%= so.Opis%></td>
+                    <td><%= so.Imie_autora%></td>
+                    <td><%= so.Nazwisko_autora%></td>
+                    <td><%= so.VTs%></td>
+                    <td><%= so.VTe%></td>
+                    <td><%= so.TTs%></td>
+                    <td><%= so.TTe%></td>
+                    <td><div class="gap <%=(so.Rodzaj_stanu === 'A') ? 'gap-active' : 'gap-unactive' %>"></div></td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <div class="button-link">
+        <a href="/opis/add" class="button add_warstwa_button">Dodaj Opis</a>
+    </div>
+
+</section>
+<% } %>

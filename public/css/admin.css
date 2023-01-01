@@ -1,0 +1,29 @@
+.admin_panel_section{
+    margin: 2rem;
+}
+
+.button{
+   
+    text-decoration: none;
+    color: white;
+   margin: 2rem;
+    padding: 0.25rem 2rem;
+    border: 2px solid;
+    background-color: green;
+    
+    border-radius: 2rem;
+    transition: .2s;
+}
+.button-link{
+    margin-top: 1rem;
+}
+
+.button:hover{
+    background-color: azure;
+    color: green;
+}
+
+.GEO-th{
+    max-width: 220px;
+    overflow: hidden;
+}

@@ -1,0 +1,40 @@
+<%- include(`./fragments/header.ejs`) %>
+    
+    <div class="div" id="particles">
+        <div class="title-wrapper-main">
+            <h1 style="opacity: 0;" id="title-wrapper-main">Dawka Historii</h1>
+        </div>
+    </div>
+    <section class="temat-table-section">
+       <h2 class="temat-title">Nasze tematy</h2>
+            <table class="temat-table-list table">
+                <thead>
+                    <tr>
+                        <th>Id.</th>
+                        <th>Nazwa</th>
+                        <th>Imie</th>
+                        <th>Nazwisko</th>
+                        <th>Utworzono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let temat of temats) {%>
+                        <tr onclick="window.location='/map/<%=temat.Id%>'">
+                            <td><%= temat.Id %></td>
+                            <td><%= temat.Nazwa %></td>
+                            <td><%= temat.Imie_autora %></td>
+                            <td><%= temat.Nazwisko_autora %></td>
+                            <td><%= temat.Data_utworzenia %></td>
+                        </tr>
+                
+                    <% } %>
+                </tbody>
+            </table>
+        
+    </section>
+    <link rel="stylesheet" href="/css/table.css">
+    <script type="text/javascript" src="/js/particles/particles.js"></script>
+    <script type="text/javascript" src="/js/particles/particles_app.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+</body>
+</html>

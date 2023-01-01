@@ -1,0 +1,68 @@
+.map-section{
+    width: 100vw;
+    /* background-color: red; */
+    position: relative;
+}
+.container{
+    width: 90vw;
+    margin: 4rem;
+}
+.grid-map-container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 2rem;   
+}
+
+#map { height: 540px; z-index: 1; cursor: pointer;}
+
+.map-container{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: gainsboro;
+}
+
+.warstwas-container{
+    width: fit-content;
+    margin: 0;
+    left: 0;
+    
+}
+
+.warstwa_checkbox{
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+}
+
+.input-check-box-col{
+    text-align: center;
+    
+ 
+
+}
+
+.obiekt-point-line{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-obiekt-button{
+    color: white;
+    background-color: red;
+    padding: .2rem;
+    margin: .2rem;
+
+}
+
+.error-map{
+    border: 2px solid red;
+}
+
+.table th{
+
+    width: 30vw;
+}

@@ -1,0 +1,72 @@
+<%- include('../fragments/header.ejs') %> 
+<link rel="stylesheet" href="/css/form.css">
+<link rel="stylesheet" href="/css/table.css">
+<section class="form-section">
+    <h1>Dodaj Opis do Obiektu</h1>
+    <form class="form select-form" method="post" action="/obiekt_opisowy/insert" novalidate onsubmit="return validForm()">
+        <label for="Obiekt">Obiekt: 
+            <span class="symbol-required">*</span>
+        </label>
+        <select name="Id_obiektu" id="Obiekt-select" onchange="loadOpisy()" required>
+            <option value="0" selected>Wybierz tytuł</option>
+            <% for(let i = 0 ; i < obieks.length; i++) { %>
+                <option value="<%=obieks[i].Id_obiektu%>"><%=obieks[i].Nazwa%></option>
+                <% } %>
+            </select>
+            <label for="Opis">Opis: 
+                <span class="symbol-required">*</span>
+            </label>
+            <select name="Id_opisu" id="Opis-select" required>
+                <option value="0" selected>Wybierz Opis</option>
+            </select> 
+            <span>
+
+            </span> 
+            <input type="submit" value="Dodaj">
+        </form>
+        
+</section>
+
+
+
+<section class="admin_panel_section warstwa-list">
+    <h1 class="title">Opisy w obiektach</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_stanu</th>
+                <th>Id_obiektu</th>
+                <th>Id_opisu</th>
+                <th>Obiekt Nazwa</th>          
+                <th>Opis Nazwa</th>
+                <th>Opis</th>
+                <th>TTs</th>
+                <th>TTe</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let oo of obiekt_opisowy) {%>
+                <tr>
+                    <td><%= oo.Id_stanu%></td>
+                    <td><a href="/obiekt/details/<%=oo.Id_stan_obiektu%>" ><b><%=oo.Id_stan_obiektu%></b></a> : <b><%=oo.Id_obiektu%></b></td>
+                    <td><a href="/opis/details/<%=oo.Id_stan_opisu%>" ><b><%=oo.Id_stan_opisu%></b></a> : <b><%=oo.Id_opisu%></b></td></td>
+                    <td><%= oo.Nazwa%></td>
+                    <td><%= oo.Nazwa_skrocona%></td>
+                    <td><%= oo.Opis%></td>
+                    <td><%= oo.TTs%></td>
+                    <td><%= oo.TTe%></td>
+                    <td><div class="gap <%=(oo.Rodzaj_stanu === 'A') ? 'gap-active' : 'gap-unactive' %>"></div></td>
+                </tr>
+        
+            <% } %>
+        </tbody>
+    </table>
+    <div class="button-link">
+        <a href="/obiekt_opisowy/add" class="button add_warstwa_button">Dodaj Opis do Obiektu</a>
+    </div>
+
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/validation_form/oo_validation.js"></script>
